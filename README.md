@@ -1,6 +1,6 @@
 ## WIP
 
-This is a CLI to upload a folder of your static assets to the selected provider's cloud storage. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
+This is a CLI to upload a folder containing your static app to the selected provider's cloud storage. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
 
 Compatible with any version since LTS:Boron (v6.9.0)
 
@@ -9,10 +9,8 @@ Roadmap:
 - AWS: Associate a Route53 hosted zone with (bucket|distribution)
 - Azure
 
-
 ### usage
 
-CLI
 ```sh
 # currently only accepts a config.yml (or .json) file
 >> statick -c config.yml
@@ -46,7 +44,7 @@ aws:
 |---|---|--:|--:|
 | provider* | one of; "aws" | -| string |
 | domain* | uploaded-to storage will be named this | -| string |
-| path*   | *relative path* of the folder the static app resides in  | - | string |
+| folder*   | *relative path* of the folder the static app resides in  | - | string |
 | aws.region  | *global* region of the AWS clients | "us-east-1" | string |
 | aws.\*accessKey\*  | credentials for AWS client |  - | string |
 | aws.s3.IndexDocument | entry .html to your bucket (only basename) | "index.html"| string |
