@@ -2,6 +2,8 @@
 
 This is a CLI to upload a folder of your static assets to the selected provider's cloud storage. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
 
+Compatible with any version since LTS:Boron (v6.9.0)
+
 Roadmap:
 - AWS: Attach S3 endpoint to a cloudfront distribution
 - AWS: Associate a Route53 hosted zone with (bucket|distribution)
