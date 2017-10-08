@@ -1,6 +1,6 @@
 ## WIP
 
-This is a CLI to upload a folder containing your static app to the selected provider's cloud storage. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
+This is a Node.js module that takes a folder containing your static app, and hosts it in the selected provider's cloud. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
 
 Compatible with any version since LTS:Boron (v6.9.0)
 
@@ -9,13 +9,14 @@ Roadmap:
 - AWS: Associate a Route53 hosted zone with (bucket|distribution)
 - Azure
 
-### usage
+---
 
+**CLI**
 ```sh
 # currently only accepts a config.yml (or .json) file
 >> statick -c config.yml
 ```
-or
+**or node API**
 ```js
 import statick from "statick"
 import config from "statick.json"
