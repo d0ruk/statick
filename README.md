@@ -1,3 +1,27 @@
+## WIP
+
+This is a CLI to upload a folder of your static assets to the selected provider's cloud storage. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
+
+Roadmap:
+- AWS: Attach S3 endpoint to a cloudfront distribution
+- AWS: Associate a Route53 hosted zone with (bucket|distribution)
+- Azure
+
+
+### usage
+
+CLI
+```sh
+# currently only accepts a config.yml (or .json) file
+>> statick -c config.yml
+```
+or
+```js
+import statick from "statick"
+import config from "statick.json"
+
+statick(config);
+```
 
 ### config.yml
 
