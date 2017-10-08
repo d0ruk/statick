@@ -2,8 +2,8 @@ import Promise from "bluebird"
 import readdir from "recursive-readdir"
 import { red, green, blue, bold } from "chalk" // eslint-disable-line
 // import { promise as spinner } from "ora"
-import debug from "debug";
-const log = debug("statick");
+import d from "debug"
+const debug = d("statick");
 
 import {
   listBucket,
@@ -41,7 +41,7 @@ async function getBucket(name) {
         await deleteBucket(name);
         break;
       default:
-        throw (e.message = `${name} | ${e.message}`, e);
+        throw (e.message = `S3 bucket ${name} | ${e.message}`, e);
       }
     }
   }
@@ -54,7 +54,7 @@ export default function(outputFolder, bucketName, exclude) {
     .then(() => readdir(outputFolder))
     // .then(weedOut.bind(exclude))
     .then(files => Promise.map(files, filePath => {
-      log(`Uploading ${filePath}`);
+      debug(`Uploading ${filePath}`);
       return putFile(bucketName, outputFolder, filePath);
     }));
 

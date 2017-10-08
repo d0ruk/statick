@@ -1,6 +1,6 @@
 ## WIP
 
-This is a Node.js module that takes a folder containing your static app, and hosts it in the selected provider's cloud. Currently only works with ``` provider: aws``` and hosts from an S3 bucket endpoint.
+This is a Node.js module that takes a folder containing your static app, and hosts it in the selected provider's cloud. Currently only works with ``` provider: aws```, and hosts from an S3 bucket endpoint.
 
 Compatible with any version since LTS:Boron (v6.9.0)
 
@@ -29,7 +29,7 @@ statick(config);
 ```yml
 provider: aws
 domain: statick.io
-folder: ./public
+path: ./public
 exclude:
   - deleteme.html
 
@@ -45,7 +45,7 @@ aws:
 |---|---|--:|--:|
 | provider* | one of; "aws" | -| string |
 | domain* | uploaded-to storage will be named this | -| string |
-| folder*   | *relative path* of the folder the static app resides in  | - | string |
+| path*   | *relative path* of the folder the static app resides in  | - | string |
 | aws.region  | *global* region of the AWS clients | "us-east-1" | string |
 | aws.\*accessKey\*  | credentials for AWS client |  - | string |
 | aws.s3.IndexDocument | entry .html to your bucket (only basename) | "index.html"| string |
