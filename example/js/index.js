@@ -1,4 +1,4 @@
-const statick = require("../../dist/statick.js").default;
+const statick = require("statick").default;
 
 const config = {
   provider: "aws",

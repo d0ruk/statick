@@ -1,8 +1,8 @@
 {
   "name": "statick",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "put a static app in the cloud",
-  "main": "./dist/index.js",
+  "main": "./dist/statick.js",
   "scripts": {
     "start": "run-s build link",
     "dev": "run-p watch link",
