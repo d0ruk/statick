@@ -44,13 +44,13 @@ aws:
 | key  | description  | default  | type |
 |---|---|--:|--:|
 | provider* | one of; "aws" | -| string |
-| domain* | uploaded-to storage will be named this | -| string |
-| path*   | *relative path* of the folder the static app resides in  | - | string |
+| domain* | name of the uploaded-to storage | -| string |
+| path*   | path of the folder the static app resides in  | - | string |
 | aws.region  | *global* region of the AWS clients | "us-east-1" | string |
-| aws.\*accessKey\*  | credentials for AWS client |  - | string |
-| aws.s3.IndexDocument | entry .html to your bucket (only basename) | "index.html"| string |
-| aws.s3.ErrorDocument | .html to redirect to (only basename) | IndexDocument | string |
-| exclude | regular expressions to filter filenames with  |   -| array |
+| aws.credentials  | of the shape { accessKeyId, secretAccessKey } |  - | object |
+| aws.s3.IndexDocument | entry .html to your bucket (basename) | "index.html"| string |
+| aws.s3.ErrorDocument | .html to redirect to (basename) | IndexDocument | string |
+| exclude | RegExp patterns to test against each file (put quotes if using yml)  |   -| array |
 
 \* required
 

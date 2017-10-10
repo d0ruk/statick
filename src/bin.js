@@ -15,7 +15,9 @@ const params = yargs(process.argv)
   .coerce("config", arg => {
     const file = readFileSync(arg, "utf8");
 
-    return safeLoad(file);
+    return safeLoad(file, {
+      json: true
+    })
   })
   .demandOption(["config"])
   .parse();
