@@ -1,6 +1,6 @@
 provider: aws
-domain: statick.test2
-path: ./public
+domain: statick.test
+path: ../public
 exclude:
   - "deleteme"
   - ".log$"

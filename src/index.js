@@ -1,4 +1,5 @@
-import { red, green, blue, white, bold } from "chalk" // eslint-disable-line
+import PKG from "../package.json"
+import { red, green, blue, white, bold, dim } from "chalk" // eslint-disable-line
 import http from "http"
 import https from "https"
 import { resolve } from "path"
@@ -11,12 +12,13 @@ const debug = d("statick");
 import { isDir } from "./misc"
 http.globalAgent.maxSockets = https.globalAgent.maxSockets = 50;
 
-export default async function statick(options) {
+const statick = async options => {
   debug(options);
+
   const  { provider, path, domain, aws } = options;
 
   // TODO: await validateOptions()
-  if (!path) throw "statick | Missing path in config";
+  if (!path) throw "Missing path in config";
 
   const spinner = ora({ spinner: "moon" });
   const PATH = resolve(path);
@@ -42,6 +44,9 @@ export default async function statick(options) {
         err.stack && console.log(err.stack); // eslint-disable-line
       })
   default:
-    throw `statick | Invalid provider key in config ${provider ? `| ${provider}` : ""}`;
+    throw `Invalid provider key in config ${provider ? `| ${provider}` : ""}`;
   }
 }
+
+statick.version = PKG.version;
+export default statick;
