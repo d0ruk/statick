@@ -2,10 +2,11 @@ provider: aws
 domain: statick.test2
 path: ./public
 exclude:
-  - deleteme.html
+  - "deleteme"
+  - ".log$"
 
 aws:
   region: eu-central-1
   s3:
     IndexDocument: myIndex.html
-#     # ErrorDocument: error.html
+    ErrorDocument: 404.html
