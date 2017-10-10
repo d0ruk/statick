@@ -8,7 +8,7 @@ import uploadToBucket from "./tasks/upload-to-bucket.js"
 import { hasIndexPage } from "./misc"
 
 export async function runAWS(opts, PATH) {
-  if (!opts.aws) throw "Malformed AWS config";
+  if (!opts.aws) throw new Error("No AWS key config");
 
   const {
     exclude,

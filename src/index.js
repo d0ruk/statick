@@ -15,7 +15,8 @@ export default async function statick(options) {
   debug(options);
   const  { provider, path, domain, aws } = options;
 
-  if (!path) throw new Error("statick | no path in config");
+  // TODO: await validateOptions()
+  if (!path) throw "statick | Missing path in config";
 
   const spinner = ora({ spinner: "moon" });
   const PATH = resolve(path);
@@ -23,12 +24,15 @@ export default async function statick(options) {
 
   switch(String(provider).toLowerCase()) {
   case "aws":
-    AWS.config.apiVersions = {
-      s3: "2006-03-01",
-      route53: "2014-05-15",
-      cloudfront: "2017-03-25"
-    };
-    AWS.config.region = aws && aws.region || "us-east-1";
+    AWS.config = new AWS.Config({
+      apiVersions: {
+        s3: "2006-03-01",
+        route53: "2014-05-15",
+        cloudfront: "2017-03-25"
+      },
+      region: aws && aws.region || "us-east-1",
+      credentials: aws.credentials
+    });
 
     return import(/* webpackChunkName: "runAWS" */ "./runAWS.js")
       .then(({ runAWS }) => runAWS(options, PATH))
@@ -38,6 +42,6 @@ export default async function statick(options) {
         err.stack && console.log(err.stack); // eslint-disable-line
       })
   default:
-    throw new Error(`statick | Invalid provider key in config ${provider ? `| ${provider}` : ""}`);
+    throw `statick | Invalid provider key in config ${provider ? `| ${provider}` : ""}`;
   }
 }
