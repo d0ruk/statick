@@ -8,6 +8,7 @@
     "dev": "run-p watch link",
     "build": "webpack --progress --hide-modules",
     "watch": "webpack -w --env development --hide-modules",
+    "prepublish": "npm run build",
     "link": "npm link"
   },
   "repository": {
