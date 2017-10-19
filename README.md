@@ -7,7 +7,7 @@ Compatible with any version since LTS:Boron (v6.9.0)
 Roadmap:
 - AWS: Attach S3 endpoint to a cloudfront distribution
 - AWS: Associate a Route53 hosted zone with (bucket|distribution)
-- Azure
+- Google Cloud
 
 ---
 
@@ -54,7 +54,9 @@ aws:
 
 \* required
 
-#### Notes
+## Notes
+
+#### AWS
 
 - Constraints on S3 bucket name
 
@@ -63,6 +65,12 @@ aws:
   - The bucket name must not contain adjacent periods.
 
 - *Conflicting conditional operation in progress* error indicates the S3 bucket name is currently unavailable. Trying again in a couple minutes works.
+
+### Google cloud
+
+- You need to complete [the prerequisites](https://www.npmjs.com/package/@google-cloud/storage#before-you-begin) to be able to use the storage API.
+
+- You need a [key file](https://cloud.google.com/docs/authentication/getting-started) to authorize the client with gcloud. Each project you have in your account has its own service account. This key file determines which project your bucket is deployed under. 
 
 #### Reading
 

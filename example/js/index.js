@@ -1,7 +1,7 @@
 const statick = require("statick").default;
 
 const config = {
-  provider: "aws",
+  provider: "awsasd",
   domain: "statick.test2",
   path: "../public",
   exclude: ["deleteme", ".log$"],

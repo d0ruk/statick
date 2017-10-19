@@ -1,3 +1,4 @@
+const isDev = process.env.NODE_ENV === "development";
 import PKG from "../package.json"
 import { red, green, blue, white, bold, dim } from "chalk" // eslint-disable-line
 import http from "http"
@@ -5,12 +6,18 @@ import https from "https"
 import { resolve } from "path"
 
 import AWS from "aws-sdk"
+import Raven from "raven"
 import ora from "ora"
 import d from "debug"
 const debug = d("statick");
 
 import { isDir } from "./misc"
 http.globalAgent.maxSockets = https.globalAgent.maxSockets = 50;
+
+if (isDev) {
+  Raven.config("https://af99106e8e3b42f7966ba9926e219d72:4c7c8fbbe1084f7a965cc99b2085b353@sentry.io/228380")
+    .install();
+}
 
 const statick = async options => {
   debug(options);
@@ -49,4 +56,5 @@ const statick = async options => {
 }
 
 statick.version = PKG.version;
-export default statick;
+
+export default isDev ? Raven.context(statick) : statick;

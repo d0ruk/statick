@@ -8,7 +8,7 @@
     "dev": "run-p watch link",
     "build": "webpack --progress --hide-modules",
     "watch": "webpack -w --env development --hide-modules",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "link": "npm link"
   },
   "repository": {
@@ -44,11 +44,13 @@
     "clean-webpack-plugin": "^0.1.17",
     "debug": "^3.1.0",
     "eslint": "^4.8.0",
+    "raven": "^2.2.1",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-notifier": "^1.5.0"
   },
   "dependencies": {
+    "@google-cloud/storage": "^1.4.0",
     "aws-sdk": "^2.126.0",
     "babel-runtime": "^6.26.0",
     "bluebird": "^3.5.1",
