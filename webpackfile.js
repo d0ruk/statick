@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const NotifierPlugin = require("webpack-notifier");
-// const MinifyPlugin = require("babel-minify-webpack-plugin");
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = [
   env => { // lib
@@ -46,14 +46,13 @@ module.exports = [
         }),
         new BundleAnalyzer({
           analyzerMode: "static",
-          openAnalyzer: !isDev,
+          openAnalyzer: false,
           reportFilename: "report-lib.html"
         }),
       ].concat(isDev
         ? [new NotifierPlugin({ excludeWarnings: true })]
         : [new webpack.optimize.ModuleConcatenationPlugin(),
-          // new webpack.optimize.ModuleConcatenationPlugin(),
-          // new MinifyPlugin(),
+          new MinifyPlugin(),
         ]),
       resolve: {
         modules: [
@@ -69,7 +68,7 @@ module.exports = [
     }
   },
   env => { // bin
-    const isDev = (env === "development");
+    // const isDev = (env === "development");
 
     return {
       target: "node",
@@ -103,7 +102,7 @@ module.exports = [
         }),
         new BundleAnalyzer({
           analyzerMode: "static",
-          openAnalyzer: !isDev,
+          openAnalyzer: false,
           reportFilename: "report-bin.html"
         }),
       ],
