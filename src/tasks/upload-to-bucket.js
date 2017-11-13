@@ -1,7 +1,6 @@
 import { map } from "bluebird"
 import readdir from "recursive-readdir"
 import { red, green, blue, bold } from "chalk" // eslint-disable-line
-// import { promise as spinner } from "ora"
 import d from "debug"
 const debug = d("statick");
 
@@ -16,7 +15,7 @@ import {
 
 async function emptyBucket(name) {
   debug(`Emptying bucket ${name}`);
-  const { Contents } = await listBucket(name);
+  const Contents = await listBucket(name);
 
   return map(Contents, ({ Key }) => deleteObject(name, Key));
 }
@@ -31,6 +30,7 @@ async function bucketExists(name) {
   }
 }
 
+// TODO: option to merge folder contents
 async function getBucket(name) {
   if (await bucketExists(name)) {
     try {
@@ -50,16 +50,22 @@ async function getBucket(name) {
   return createBucket(name);
 }
 
-export default function(outputFolder, bucketName, exclude=[]) {
+export default function uploadToBucket(
+  outputFolder,
+  bucketName,
+  exclude=[]
+) {
   return getBucket(bucketName)
     .then(() => readdir(outputFolder))
     .then(weedOut.bind(null, exclude))
     .then(files => map(files, filePath => {
-      debug(`Uploading ${filePath}`);
+      debug(`Uploading ${filePath} to ${bucketName}`);
       return putFile(bucketName, outputFolder, filePath);
     }));
 
-  function weedOut(arr, files) {
+  function weedOut(exc, files) {
+    const arr = typeof exc === "string" ? [exc] : exc;
+
     return files.filter(f => !arr.some(e => RegExp(e).test(f)));
   }
 }
