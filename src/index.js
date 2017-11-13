@@ -2,27 +2,21 @@ import PKG from "../package.json"
 import { red, green, blue, white, bold, dim } from "chalk" // eslint-disable-line
 import http from "http"
 import https from "https"
-import { resolve } from "path"
+http.globalAgent.maxSockets = https.globalAgent.maxSockets = 50;
 
 import AWS from "aws-sdk"
 import ora from "ora"
 import d from "debug"
 const debug = d("statick");
 
-import { isDir } from "./misc"
-http.globalAgent.maxSockets = https.globalAgent.maxSockets = 50;
+import { validateOptions } from "./misc"
 
 const statick = async options => {
   debug(options);
+  const validatedOpts = await validateOptions(options);
 
-  const  { provider, path, domain, aws } = options;
-
-  // TODO: await validateOptions()
-  if (!path) throw "Missing path in config";
-
+  const { provider, aws={} } = validatedOpts;
   const spinner = ora({ spinner: "moon" });
-  const PATH = resolve(path);
-  await isDir(resolve(PATH));
 
   switch(String(provider).toLowerCase()) {
   case "aws":
@@ -32,12 +26,12 @@ const statick = async options => {
         route53: "2014-05-15",
         cloudfront: "2017-03-25"
       },
-      region: aws && aws.region || "us-east-1",
+      region: aws.region || "us-east-1",
       credentials: aws.credentials
     });
 
     return import(/* webpackChunkName: "runAWS" */ "./runAWS.js")
-      .then(({ runAWS }) => runAWS(options, PATH))
+      .then(({ runAWS }) => runAWS(options))
       .then(str => spinner.succeed(`Hosted at ${bold(str)}`))
       .catch(err => {
         spinner.fail(err);

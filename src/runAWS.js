@@ -2,16 +2,12 @@ import { red, green, blue, white, bold } from "chalk" // eslint-disable-line
 import ora from "ora"
 
 import { putBucketWebsite, getBucketUrl } from "./aws/s3"
-// import { listDistributions } from "./aws/cf.js"
-// import { listHostedZones } from "./aws/r53.js"
 import uploadToBucket from "./tasks/upload-to-bucket.js"
-import { hasIndexPage } from "./misc"
 
-export async function runAWS(opts, PATH) {
-  if (!opts.aws) throw new Error("No AWS key config");
-
+export async function runAWS(opts) {
   const {
     exclude,
+    path,
     domain: Bucket,
     aws: { s3: { IndexDocument, ErrorDocument }}
   } = opts;
@@ -23,25 +19,13 @@ export async function runAWS(opts, PATH) {
   }).start();
 
   try {
-    await hasIndexPage(PATH, IndexDocument);
-
-    // const { Items } = await listDistributions();
-    // console.dir(Items, { depth: 1 })
-    // const { HostedZones } = await listHostedZones();
-    // return HostedZones;
-
-    spinner.text = `Uploading ${bold(PATH)} to ${bold(Bucket)}`;
-    await uploadToBucket(PATH, Bucket, exclude);
-    // spinner.render({
-    //   text: `Uploaded to ${Bucket}`,
-    //   symbol: blue.bold("\u25BA")
-    // });
+    spinner.text = `Uploading ${bold(path)} to ${bold(Bucket)}`;
+    await uploadToBucket(path, Bucket, exclude);
 
     spinner.text = `Configuring bucket ${bold(Bucket)} for static website`;
     await putBucketWebsite(Bucket, IndexDocument, ErrorDocument);
-    // await new Promise(res => setTimeout(res, 3000))
-    spinner.succeed(`S3 bucket ${bold(Bucket)}`);
 
+    spinner.succeed(`S3 bucket ${bold(Bucket)}`);
     return await getBucketUrl(Bucket);
   } catch(err) {
     spinner.stop();
