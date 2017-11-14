@@ -4,7 +4,8 @@ const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const NotifierPlugin = require("webpack-notifier");
-const MinifyPlugin = require("babel-minify-webpack-plugin");
+// TODO: find a minifier that plays nice
+// const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = [
   env => { // lib
@@ -52,7 +53,7 @@ module.exports = [
       ].concat(isDev
         ? [new NotifierPlugin({ excludeWarnings: true })]
         : [new webpack.optimize.ModuleConcatenationPlugin(),
-          new MinifyPlugin(),
+          // new MinifyPlugin(),
         ]),
       resolve: {
         modules: [

@@ -1,6 +1,6 @@
 {
   "name": "statick",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "put a static app in the cloud",
   "main": "dist/statick.js",
   "module": "src/",
