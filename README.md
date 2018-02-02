@@ -19,7 +19,7 @@ Roadmap:
 **or node API**
 ```js
 import statick from "statick"
-import config from "statick.json"
+import config from "./statick.json"
 
 statick(config);
 ```
